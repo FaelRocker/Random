@@ -128,6 +128,30 @@
             }
 
             function getRandomInt(min, max) {
+                var data = {
+                    "jsonrpc": "2.0",
+                    "method": "generateIntegers",
+                    "params": {
+                        "apiKey": "7cf8d1fe-e3c4-4bf8-bce7-ce7c9c3a545b",
+                        "n": 1,
+                        "min": min,
+                        "max": max,
+                        "replacement": true
+                    },
+                    "id": 42
+                };
+                $.ajax({
+                    url: 'https://api.random.org/json-rpc/2/invoke',
+                    type: "POST",
+                    data: JSON.stringify(data),// stringify data object
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(result) {
+                        $('#text').html(JSON.stringify(result));
+                        console.log(result);
+                    }
+                });
+                
                 var n = Math.floor(Math.random() * (max - min + 1)) + min;
                 console.log(min + ' | ' + max + ' | ' + n);
                 document.getElementById("demo").innerHTML = n;
